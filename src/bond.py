@@ -1,3 +1,5 @@
+import pandas as pd 
+
 class bond: 
     """
     Represents an option free fixed-rate bond calculation
@@ -19,4 +21,22 @@ class bond:
     def discounting_periods(self):
         # returns the number of coupons over the life of the bond
         return self.compoundingfreq * self.maturity
+    
+    def cash_flows(self): 
+        """
+        Creates a per period analysis of coupons recieved 
+        """
+        cash_flows = [] 
+
+        periods = self.discounting_periods()
+        for p in range(1, periods + 1): 
+            if p < periods: 
+                cash_flow = self.coupon_payment()
+            else: 
+                cash_flow = self.coupon_payment() + self.face_value
+            cash_flows.append(cash_flow)
+        return pd.DataFrame({
+            "Period": range(1,periods + 1), 
+            "Cash Flow": cash_flows
+        })
     
