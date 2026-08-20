@@ -58,14 +58,19 @@ class BondPricing:
         Calculates the Macaulay duration of a bond. 
         """
         table = self.valuation_table(ytm)
-
         price = table["Present Value"].sum()
-        table["Duration Weight"] = (
-            table["Period"] * table["Present Value"]
+        
+        table["Time"] = ( 
+            table["Period"] / self.bond.compoundingfreq
         )
-        duration = table["Duration Weight"].sum() / price
+        table["Duration Weight"] = (
+            table["Time"] * table["Present Value"]
+        )
 
-        return duration/self.bond.compoundingfreq
+        duration = (
+            table["Duration Weight"].sum() / price
+        )
+        return duration
     
     def modified_duration(self, ytm):
         """
@@ -86,8 +91,10 @@ class BondPricing:
         periods = table["Period"]
 
         table["Convexity Weight"] = (
-            periods * (periods + 1) * table["Present Value"]
-        )
+            periods 
+            * (periods + 1) 
+            * table["Present Value"]
+            )
 
         convexity = ( 
             table["Convexity Weight"].sum() / 
