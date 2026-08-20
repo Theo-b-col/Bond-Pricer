@@ -101,7 +101,7 @@ The results demonstrate the inverse relationship between bond prices and yields,
 
 The model compares the actual price change following a yield shock with approximations based on duration alone and duration plus convexity.
 
-![Yield Shock Analysis](figures/yield_shock_analysis.png)
+![Yield Shock Analysis](figures/yield_shock_analysis_png.png)
 
 | Yield Shock |  Actual | Duration | Duration + Convexity |
 | ----------: | ------: | -------: | -------------------: |
@@ -177,9 +177,12 @@ Bond-Pricer/
 
 Install the required dependencies:
 
-
 pip install -r requirements.txt
+
 Run the custom pricing and analytics engine:
+
 python3 -m src.main
+
 Run the QuantLib validation:
+
 python3 -m src.quantlib_validation
